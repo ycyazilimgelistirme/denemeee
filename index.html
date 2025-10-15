@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>YouTube Link Paneli</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>YouTube Link Paneli</h1>
+
+    <form action="/add_id" method="post">
+        <input type="text" name="video_id" placeholder="YouTube Video ID" required>
+        <button type="submit">Ekle</button>
+    </form>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Başlık</th>
+            <th>Uploader</th>
+            <th>Süre</th>
+            <th>Albüm</th>
+            <th>Thumbnail</th>
+        </tr>
+        {% for vid, meta in data.items() %}
+        <tr>
+            <td>{{ vid }}</td>
+            <td>{{ meta.title }}</td>
+            <td>{{ meta.uploader }}</td>
+            <td>{{ meta.duration }}</td>
+            <td>{{ meta.album }}</td>
+            <td>
+                {% if meta.thumbnail_url %}
+                <img src="{{ meta.thumbnail_url }}" width="80">
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
